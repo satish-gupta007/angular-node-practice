@@ -1,0 +1,94 @@
+<app-header></app-header>
+<div class="container-lg">
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <h2>Employee <b>Details</b></h2>
+                    </div>
+                    <div class="col-sm-4">
+                        <button type="button" class="btn btn-info add-new" data-toggle="modal" data-target="#registerModalCenter" (click)="addNewEmployee()"><i class="fa fa-plus"></i> Add New</button>
+                    </div>
+                </div>
+            </div>
+            <h1 style="text-align: center;" *ngIf="EmployeeList?.length==0">No Employee Found</h1>
+            <table class="table table-bordered" *ngIf="EmployeeList?.length > 0">
+                <thead>
+                    <tr>
+                        <th>Employee Id</th>
+                        <th>Name</th>
+                        <th>Employee Code</th>
+                        <th>Salary</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let list of EmployeeList; let i=index">
+                        <td>{{list.EmpID}}</td>
+                        <td>{{list.Name}}</td>
+                        <td>{{list.EmpCode}}</td>
+                        <td>{{list.Salary}}</td>
+                        <td>
+                            <a class="edit" title="Edit" data-toggle="tooltip" data-toggle="modal" data-target="#registerModalCenter" (click)="OnEditEmployee(list)"><i class="fa fa-edit">&#xE254;</i></a>
+                            <a class="delete" title="Delete" data-toggle="tooltip" (click)="deleteEmployeeDetails(list.EmpID)"><i class="fa fa-trash">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal fade" id="registerModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 style="text-align: center;">Employee Form</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="employeeForm">
+                        <div class="form-group" *ngIf="UpdateButton">
+                            <label for="EmpId">Employee ID</label>
+                            <input type="text" formControlName='empID' disabled class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" formControlName='name' class="form-control" [ngClass]="{ 'is-invalid': submitted && g.name.errors }" />
+                            <div *ngIf="submitted && g.name.errors" class="invalid-feedback">
+                                <div *ngIf="g.name.errors.required">Name is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="empCode">Emp Code</label>
+                            <input type="text" formControlName='empCode' class="form-control" [ngClass]="{ 'is-invalid': submitted && g.empCode.errors }" />
+                            <div *ngIf="submitted && g.empCode.errors" class="invalid-feedback">
+                                <div *ngIf="g.empCode.errors.required">EmpCode is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="salary">Salary</label>
+                            <input type="text" formControlName="salary" class="form-control" [ngClass]="{ 'is-invalid': submitted && g.salary.errors }" />
+
+                            <div *ngIf="submitted && g.salary.errors" class="invalid-feedback">
+                                <div *ngIf="g.salary.errors.required">Salary is required</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button *ngIf="!UpdateButton" class="btn btn-primary" (click)="addEmployee(employeeForm.value)">
+                                        Add Employee
+                                    </button>
+                            <button *ngIf="UpdateButton" class="btn btn-success" (click)="updateEmployee(employeeForm.value)">
+                                        Update Employee
+                                    </button>
+                            <a class="btn btn-link" data-dismiss="modal" #closeAddExpensenModal (click)="onCancel()">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

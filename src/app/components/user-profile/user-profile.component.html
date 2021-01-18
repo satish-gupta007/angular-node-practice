@@ -1,0 +1,160 @@
+<div class="row">
+    <div class="col-6 col-md-6">
+        <form [formGroup]="dynamicForm">
+            <div class="card m-3">
+                <h5 class="card-header">Angular 8 Dynamic Reactive Forms Example</h5>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" formControlName='name' class="form-control" [ngClass]="{ 'is-invalid': submitted && g.name.errors }" />
+                        <div *ngIf="submitted && g.name.errors" class="invalid-feedback">
+                            <div *ngIf="g.name.errors.required">Name is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="userCode">User Code</label>
+                        <input type="text" formControlName='userCode' class="form-control" [ngClass]="{ 'is-invalid': submitted && g.userCode.errors }" />
+                        <div *ngIf="submitted && g.userCode.errors" class="invalid-feedback">
+                            <div *ngIf="g.userCode.errors.required">EmpCode is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="salary">Salary</label>
+                        <input type="text" formControlName="salary" class="form-control" [ngClass]="{ 'is-invalid': submitted && g.salary.errors }" />
+
+                        <div *ngIf="submitted && g.salary.errors" class="invalid-feedback">
+                            <div *ngIf="g.salary.errors.required">Salary is required</div>
+                        </div>
+                    </div>
+                    <div *ngFor="let addressGroup of dynamicForm.get('address')['controls'];let i = index" [formGroup]="addressGroup" class="list-group list-group-flush">
+                        <div style="text-align: right;">
+                            <i class="fas fa-times" (click)="deleteAddressGroup(i)">&#xE872;</i>
+
+                        </div>
+
+                        <div class="list-group-item">
+                            <div class="form-row">
+                                <div class="form-group col-6">
+                                    <label>Address 1:</label>
+                                    <input type="text" formControlName="address1" class="form-control" [ngClass]="{ 'is-invalid': submitted && addressGroup.controls.address1.errors }" />
+                                    <div *ngIf="submitted && addressGroup.controls.address1.errors" class="invalid-feedback">
+                                        <div *ngIf="addressGroup.controls.address1.errors.required">Address 1 is required</div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>Address 2:</label>
+                                    <input type="text" formControlName="address2" class="form-control" [ngClass]="{ 'is-invalid': submitted && addressGroup.controls.address2.errors }" />
+                                    <div *ngIf="submitted && addressGroup.controls.address2.errors" class="invalid-feedback">
+                                        <div *ngIf="addressGroup.controls.address2.errors.required">Address 2 is required</div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>Pin Code</label>
+                                    <input type="text" formControlName="pin" class="form-control" [ngClass]="{ 'is-invalid': submitted && addressGroup.controls.pin.errors }" />
+                                    <div *ngIf="submitted && addressGroup.controls.pin.errors" class="invalid-feedback">
+                                        <div *ngIf="addressGroup.controls.pin.errors.required">Pin is required</div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>City</label>
+                                    <input type="text" formControlName="city" class="form-control" [ngClass]="{ 'is-invalid': submitted && addressGroup.controls.city.errors }" />
+                                    <div *ngIf="submitted && addressGroup.controls.city.errors" class="invalid-feedback">
+                                        <div *ngIf="addressGroup.controls.city.errors.required">City is required</div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>State</label>
+                                    <input type="text" formControlName="state" class="form-control" [ngClass]="{ 'is-invalid': submitted && addressGroup.controls.state.errors }" />
+                                    <div *ngIf="submitted && addressGroup.controls.state.errors" class="invalid-feedback">
+                                        <div *ngIf="addressGroup.controls.state.errors.required">State is required</div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label>Country</label>
+                                    <input type="text" formControlName="country" class="form-control" [ngClass]="{ 'is-invalid': submitted && addressGroup.controls.country.errors }" />
+                                    <div *ngIf="submitted && addressGroup.controls.country.errors" class="invalid-feedback">
+                                        <div *ngIf="addressGroup.controls.country.errors.required">Country is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button (click)="addNewAddressGroup()" class="btn btn-primary btn-sm">Add Address</button>
+                    </div>
+                    <div class="card-footer text-center">
+                        <button class="btn btn-primary mr-1" (click)="onSubmit()">Save</button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <div class="col-6 col-md-6">
+        <div class="table-responsive">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <!-- <div class="row">
+                        <h2>User <b>List</b></h2>
+
+                    </div> -->
+                    <h2>User-List</h2>
+                </div>
+                <!-- <h1 style="text-align: center;" *ngIf="EmployeeList?.length==0">No Employee Found</h1> -->
+                <table class="table table-bordered" *ngIf="userList.length > 0">
+                    <thead>
+                        <tr>
+                            <th>Employee Id</th>
+                            <th>Name</th>
+                            <th>Employee Code</th>
+                            <th>Salary</th>
+                            <!-- //new -->
+                            <th>Address1</th>
+                            <!-- <th>Address2</th>
+                            <th>Pincode</th>
+                            <th>City</th>
+                            <th>State</th>
+                            <th>Country</th> -->
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let list of userList; let i=index">
+                            <!-- <td>{{list.EmpID}}</td>
+                            <td>{{list.Name}}</td>
+                            <td>{{list.EmpCode}}</td>
+                            <td>{{list.Salary}}</td> -->
+                            <td>{{i+1}}</td>
+                            <td>{{list?.Name}}</td>
+                            <td>{{list?.Usercode}}</td>
+                            <td>{{list?.Salary}}</td>
+                            <td>
+                                <li *ngFor="let subAdd1 of list?.Address1">{{subAdd1}}</li>
+                            </td>
+                            <!-- <td>
+                                <li *ngFor="let subAdd2 of list?.Address2">{{subAdd2}}</li>
+                            </td>
+                            <td>
+                                <li *ngFor="let subPin of list?.Pincode">{{subPin}}</li>
+                            </td>
+                            <td>
+                                <li *ngFor="let subCity of list?.City">{{subCity}}</li>
+                            </td>
+                            <td>
+                                <li *ngFor="let subState of list?.State">{{subState}}</li>
+                            </td>
+                            <td>
+                                <li *ngFor="let subCountry of list?.Country">{{subCountry}}</li>
+                            </td> -->
+
+                            <td>
+                                <a class="edit" title="Edit" data-toggle="tooltip" data-toggle="modal" data-target="#registerModalCenter" (click)="OnEditEmployee(list)"><i class="fa fa-edit">&#xE254;</i></a>
+                                <a class="delete" title="Delete" data-toggle="tooltip" (click)="deleteEmployeeDetails(list.EmpID)"><i class="fa fa-trash">&#xE872;</i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

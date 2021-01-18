@@ -1,0 +1,112 @@
+<app-header></app-header>
+<div class="container">
+    <div class="row">
+        <div class="offset-lg-4 col-lg-4 col-sm-6 col-12 main-section text-center">
+            <div class="row">
+                <div class="col-lg-12 col-sm-12 col-12 profile-header"></div>
+            </div>
+            <div class="row user-detail">
+                <div class="col-lg-12 col-sm-12 col-12">
+                    <img src="../../../assets/download.jpeg" style="border-radius: 50%;">
+                    <div class="col-12 col-md-12 col-lg-12">
+                        <input type="file" (change)="fileChange($event)">
+                        <!-- <button class="btn btn-info" type="file">Upload images</button> -->
+                    </div>
+
+                    <h5>{{UserInfo.firstName}}</h5>
+                    <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{UserInfo.lastName}}</p>
+
+                    <hr>
+                    <div class="row">
+                        <div class="col-12 col-md-12 col-lg-12">
+                            <a class="btn btn-info" (click)="onUserEdit()" data-toggle="modal" data-target="#exampleModalCenter">UserInfo</a>
+                        </div>
+                        <!-- <div class="col-4 col-md-4">
+                            <a href="#" class="btn btn-primary btn-sm" (click)="AddEmployee()" data-toggle="modal" data-target="#registerModalCenter">Add Employee</a>
+
+                        </div> -->
+                        <!-- <div class="col-4 col-md-4">
+                            <a href="#" class="btn btn-secondary btn-sm" (click)="onLogout()">Logout</a>
+
+                        </div> -->
+
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-12 col-md-12 col-lg-12">
+                            <button class="btn btn-primary" (click)="gotoEmployeeList()">Go To Employee List</button>
+                            <!-- <a class="btn btn-info btn-lg" (click)="onUserEdit()" data-toggle="modal" data-target="#exampleModalCenter">UserInfo</a> -->
+                        </div>
+                    </div>
+                    <hr>
+                    <span>Lorem ips consectetur adipisium ,eiusmod tempor incididuin reprehendeanim.</span>
+                </div>
+            </div>
+            <div class="row user-social-detail">
+                <div class="col-lg-12 col-sm-12 col-12">
+                    <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 style="text-align: center;">Update Form</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="registerForm">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" formControlName='firstName' class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
+                            <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                                <div *ngIf="f.firstName.errors.required">First Name is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" formControlName='lastName' class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
+                            <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                                <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="username">Email/Usename</label>
+                            <input type="text" formControlName='username' class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+                            <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                                <div *ngIf="f.username.errors.required">Username is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+
+                            <input type="password" #input formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                            <p style="position: absolute;
+                            margin-top: -31px;
+                            right: 23px;cursor: pointer;" (click)="showPassword(input)">Show</p>
+                            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                                <div *ngIf="f.password.errors.required">Password is required</div>
+                                <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-primary" (click)="onSubmit(registerForm.value)">
+                                        Update
+                                    </button>
+                            <a class="btn btn-link" data-dismiss="modal" #closeAddExpenseModal>Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
